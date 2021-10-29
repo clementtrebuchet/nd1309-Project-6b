@@ -11,9 +11,15 @@
   "author": "pk <pkrasam@gmail.com> (https://ipfs.infura.io/ipfs/QmSXiR9Khm3yo1J67nUopvVBxFJ8YGN2fUGZ34Etr3m92x/)",
   "license": "MIT",
   "devDependencies": {
+    "bignumber.js": "^8.0.0",
     "lite-server": "2.4.0"
   },
   "dependencies": {
-    "@truffle/hdwallet-provider": "^1.5.1"
+    "@truffle/hdwallet-provider": "^1.5.1",
+    "bignumber": "^1.1.0",
+    "bignumber.js": "^8.0.0",
+    "eth-rpc-errors": "^4.0.3",
+    "require": "^2.4.20",
+    "require.js": "^1.0.0"
   }
 }

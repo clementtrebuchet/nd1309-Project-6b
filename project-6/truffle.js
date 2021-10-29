@@ -7,8 +7,7 @@ module.exports = {
             host: "127.0.0.1",
             port: 8545,
             network_id: "*",
-            websockets: true,
-            from: "0x0a4Af0193E9A197CbDBfb2D70a1343387C0CA799"
+            from: "0xe01b804010E22A4CF900ad29C3b6c16Fa3D30f8B"
         },
         rinkeby: {
             provider: function () {
@@ -17,6 +16,21 @@ module.exports = {
             network_id: 4,
             gas: 4500000,
             gasPrice: 10000000000,
+        }
+    },
+    // Configure your compilers
+    compilers: {
+        solc: {
+            version: "0.8.7",    // Fetch exact version from solc-bin (default: truffle's version)
+            // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
+            settings: {          // See the solidity docs for advice about optimization and evmVersion
+                optimizer: {
+                    enabled: true,
+                    runs: 8000
+                },
+            },
+            evmVersion: "london"
+            // }
         }
     }
 };

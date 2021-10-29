@@ -27,7 +27,7 @@ Give examples (to be clarified)
 
 ### Installing
 
-> The starter code is written for **Solidity v0.4.24**. At the time of writing, the current Truffle v5 comes with Solidity v0.5 that requires function *mutability* and *visibility* to be specified (please refer to Solidity [documentation](https://docs.soliditylang.org/en/v0.5.0/050-breaking-changes.html) for more details). To use this starter code, please run `npm i -g truffle@4.1.14` to install Truffle v4 with Solidity v0.4.24. 
+> The code is written for **Solidity v0.8.7**.
 
 A step by step series of examples that tell you have to get a development env running
 
@@ -47,7 +47,7 @@ npm install
 Launch Ganache:
 
 ```
-ganache-cli -m "spirit supply whale amount human item harsh scare congress discover talent hamster"
+ganache -m "betray pool clock magnet coast zone sweet crucial nasty display lady method"
 ```
 
 Your terminal should look something like this:
@@ -82,7 +82,7 @@ Test smart contracts:
 truffle test
 ```
 
-All 10 tests should pass.
+All the 10 tests pass.
 
 ![truffle test](images/truffle_test.png)
 
@@ -94,11 +94,10 @@ npm run dev
 
 ## Built With
 
-* [Ethereum](https://www.ethereum.org/) - Ethereum is a decentralized platform that runs smart contracts
-* [IPFS](https://ipfs.io/) - IPFS is the Distributed Web | A peer-to-peer hypermedia protocol
-to make the web faster, safer, and more open.
-* [Truffle Framework](http://truffleframework.com/) - Truffle is the most popular development framework for Ethereum with a mission to make your life a whole lot easier.
-
+* Ganache 2.5.4
+* solidity 8.0.7
+* npm 8.1.0
+* node 16.13.0
 
 ## Authors
 

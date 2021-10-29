@@ -1,13 +1,14 @@
-pragma solidity ^0.4.24;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
 
 /**
  * @title Roles
  * @dev Library for managing addresses assigned to a Role.
  */
 library Roles {
-  struct Role {
-    mapping (address => bool) bearer;
-  }
+	struct Role {
+		mapping(address => bool) bearer;
+	}
 
   /**
    * @dev give an account access to this role
@@ -15,7 +16,6 @@ library Roles {
   function add(Role storage role, address account) internal {
     require(account != address(0));
     require(!has(role, account));
-
     role.bearer[account] = true;
   }
 

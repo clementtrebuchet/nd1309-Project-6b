@@ -1,23 +1,24 @@
-pragma solidity ^0.4.24;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
 
 // Import the library 'Roles'
 import "./Roles.sol";
 
 // Define a contract 'FarmerRole' to manage this role - add, remove, check
 contract FarmerRole {
-  using Roles for Roles.Role;
-
-  // Define 2 events, one for Adding, and other for Removing
-  event FarmerAdded(address indexed account);
+	using Roles for Roles.Role;
+	
+	// Define 2 events, one for Adding, and other for Removing
+	event FarmerAdded(address indexed account);
   event FarmerRemoved(address indexed account);
 
   // Define a struct 'farmers' by inheriting from 'Roles' library, struct Role
   Roles.Role private farmers;
 
   // In the constructor make the address that deploys this contract the 1st farmer
-  constructor() public {
-    _addFarmer(msg.sender);
-  }
+	constructor() {
+		_addFarmer(msg.sender);
+	}
 
   // Define a modifier that checks to see if msg.sender has the appropriate role
   modifier onlyFarmer() {

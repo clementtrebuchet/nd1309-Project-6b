@@ -1,21 +1,22 @@
-pragma solidity ^0.4.24;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
 
 // Import the library 'Roles'
 import "./Roles.sol";
 
 // Define a contract 'DistributorRole' to manage this role - add, remove, check
 contract DistributorRole {
-   using Roles for Roles.Role;
-
-  // Define 2 events, one for Adding, and other for Removing
-  event DistributorAdded(address indexed account);
+	using Roles for Roles.Role;
+	
+	// Define 2 events, one for Adding, and other for Removing
+	event DistributorAdded(address indexed account);
   event DistributorRemoved(address indexed account);
   // Define a struct 'distributors' by inheriting from 'Roles' library, struct Role
   Roles.Role private distributors;
   // In the constructor make the address that deploys this contract the 1st distributor
-  constructor() public {
-    _addDistributor(msg.sender);
-  }
+	constructor() {
+		_addDistributor(msg.sender);
+	}
 
   // Define a modifier that checks to see if msg.sender has the appropriate role
   modifier onlyDistributor() {

@@ -14,24 +14,11 @@ contract('SupplyChain', function(accounts) {
     const originFarmLongitude = "144.341490"
     var productID = sku + upc
     const productNotes = "Best beans for Espresso"
-    const productPrice = web3.toWei(1, "ether")
+    const productPrice = web3.utils.toWei("1", "ether")
     var itemState = 0
     const distributorID = accounts[2]
     const retailerID = accounts[3]
     const consumerID = accounts[4]
-    const emptyAddress = '0x00000000000000000000000000000000000000'
-    ///Available Accounts
-    ///==================
-    ///(0) 0x27d8d15cbc94527cadf5ec14b69519ae23288b95
-    ///(1) 0x018c2dabef4904ecbd7118350a0c54dbeae3549a
-    ///(2) 0xce5144391b4ab80668965f2cc4f2cc102380ef0a
-    ///(3) 0x460c31107dd048e34971e57da2f99f659add4f02
-    ///(4) 0xd37b7b8c62be2fdde8daa9816483aebdbd356088
-    ///(5) 0x27f184bdc0e7a931b507ddd689d76dba10514bcb
-    ///(6) 0xfe0df793060c49edca5ac9c104dd8e3375349978
-    ///(7) 0xbd58a85c96cc6727859d853086fe8560bc137632
-    ///(8) 0xe07b5ee5f738b2f87f88b99aac9c64ff1e0c7917
-    ///(9) 0xbd3ff2e3aded055244d66544c9c059fa0851da44
     console.log("ganache-cli accounts used here...")
     console.log("Contract Owner: accounts[0] ", accounts[0])
     console.log("Farmer: accounts[1] ", accounts[1])
@@ -46,10 +33,10 @@ contract('SupplyChain', function(accounts) {
         // Add the FarmerRole
         await supplyChain.addFarmer(originFarmerID);
         // Watch the emitted event Harvested()
-        var event = supplyChain.Harvested()
-        await event.watch((err, res) => {
-            eventEmitted = true
-        })
+        supplyChain.getPastEvents('Harvested', {fromBlock: 0, toBlock: 'latest'}).then(function (event) {
+            eventEmitted = true;
+            //console.log(event);
+        });
         // Mark an item as Harvested by calling function harvestItem()
         await supplyChain.harvestItem(
             upc,
@@ -65,7 +52,7 @@ contract('SupplyChain', function(accounts) {
         // Verify the result set
         assert.equal(resultBufferOne[0], sku, 'Not the good item SKU')
         assert.equal(resultBufferOne[1], upc, 'Not the good item UPC')
-        assert.equal(resultBufferOne[2], originFarmerID, 'Not the good wnerID')
+        assert.equal(resultBufferOne[2], originFarmerID, 'Not the good ownerID')
         assert.equal(resultBufferOne[3], originFarmerID, 'Not the good originFarmerID')
         assert.equal(resultBufferOne[4], originFarmName, 'Not the good originFarmName')
         assert.equal(resultBufferOne[5], originFarmInformation, 'Not the good originFarmInformation')
@@ -80,10 +67,10 @@ contract('SupplyChain', function(accounts) {
         // Declare and Initialize a variable for event
         var eventEmitted = false;
         // Watch the emitted event Processed()
-        var event = supplyChain.Processed()
-        await event.watch((err, res) => {
-            eventEmitted = true
-        })
+        supplyChain.getPastEvents('Processed', {fromBlock: 0, toBlock: 'latest'}).then(function (event) {
+            eventEmitted = true;
+            //console.log(event);
+        });
         // Mark an item as Processed by calling function processtItem()
         await supplyChain.processItem(upc, {from: originFarmerID});
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
@@ -102,10 +89,10 @@ contract('SupplyChain', function(accounts) {
         // Declare and Initialize a variable for event
         var eventEmitted = false;
         // Watch the emitted event Packed()
-        var event = supplyChain.Packed()
-        await event.watch((err, res) => {
-            eventEmitted = true
-        })
+        supplyChain.getPastEvents('Packed', {fromBlock: 0, toBlock: 'latest'}).then(function (event) {
+            eventEmitted = true;
+            //console.log(event);
+        });
         // Mark an item as Packed by calling function packItem()
         await supplyChain.packItem(upc, {from: originFarmerID});
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
@@ -125,10 +112,10 @@ contract('SupplyChain', function(accounts) {
         // Declare and Initialize a variable for event
         var eventEmitted = false;
         // Watch the emitted event ForSale()
-        var event = supplyChain.ForSale()
-        await event.watch((err, res) => {
-            eventEmitted = true
-        })
+        supplyChain.getPastEvents('ForSale', {fromBlock: 0, toBlock: 'latest'}).then(function (event) {
+            eventEmitted = true;
+            //console.log(event);
+        });
         // Mark an item as ForSale by calling function sellItem()
         await supplyChain.sellItem(upc, productPrice, {from: originFarmerID});
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
@@ -151,10 +138,11 @@ contract('SupplyChain', function(accounts) {
         // Add the DistributorRole
         await supplyChain.addDistributor(distributorID);
         // Watch the emitted event Sold()
-        var event = supplyChain.Sold()
-        await event.watch((err, res) => {
-            eventEmitted = true
-        })
+        supplyChain.getPastEvents('Sold', {fromBlock: 0, toBlock: 'latest'}).then(function (event) {
+            eventEmitted = true;
+            //console.log(event);
+        });
+
         // Mark an item as Sold by calling function buyItem()
         supplyChain.buyItem(upc, {from: distributorID, value: productPrice});
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
@@ -164,10 +152,10 @@ contract('SupplyChain', function(accounts) {
         itemState = 4;
         assert.equal(resultBufferOne[0], sku, 'Not the good item SKU')
         assert.equal(resultBufferOne[1], upc, 'Not the good item UPC')
-        assert.equal(resultBufferOne[2], distributorID, 'Not the good ownerID');
         assert.equal(resultBufferTwo[5], itemState, 'Not the good  item state');
         assert.equal(resultBufferTwo[6], distributorID, 'Not the good distributorID');
         assert.equal(eventEmitted, true, 'Not the good event emitted');
+
     })
 
     // 6th Test
@@ -176,10 +164,10 @@ contract('SupplyChain', function(accounts) {
         // Declare and Initialize a variable for event
         var eventEmitted = false;
         // Watch the emitted event Shipped()
-        var event = supplyChain.Shipped()
-        await event.watch((err, res) => {
-            eventEmitted = true
-        })
+        supplyChain.getPastEvents('Shipped', {fromBlock: 0, toBlock: 'latest'}).then(function (event) {
+            eventEmitted = true;
+            //console.log(event);
+        });
         // Mark an item as Sold by calling function buyItem()
         supplyChain.shipItem(upc, {from: distributorID});
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
@@ -189,6 +177,7 @@ contract('SupplyChain', function(accounts) {
         itemState = 5;
         assert.equal(resultBufferOne[0], sku, 'Not the good item SKU')
         assert.equal(resultBufferOne[1], upc, 'Not the good item UPC')
+        assert.equal(resultBufferOne[2], distributorID, 'Not the good ownerID');
         assert.equal(resultBufferTwo[5], itemState, 'Not the good item state');
         assert.equal(eventEmitted, true, 'Not the good event emitted');
     })
@@ -201,10 +190,10 @@ contract('SupplyChain', function(accounts) {
         // Add the RetailerRole
         await supplyChain.addRetailer(retailerID);
         // Watch the emitted event Received()
-        var event = supplyChain.Received()
-        await event.watch((err, res) => {
-            eventEmitted = true
-        })
+        supplyChain.getPastEvents('Received', {fromBlock: 0, toBlock: 'latest'}).then(function (event) {
+            eventEmitted = true;
+            //console.log(event);
+        });
         // Mark an item as Received by calling function ReceivedItem()
         supplyChain.receiveItem(upc, {from: retailerID});
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
@@ -214,10 +203,10 @@ contract('SupplyChain', function(accounts) {
         itemState = 6;
         assert.equal(resultBufferOne[0], sku, 'Not the good item SKU')
         assert.equal(resultBufferOne[1], upc, 'Not the good item UPC')
-        assert.equal(resultBufferOne[2], retailerID, 'Not the good ownerID');
         assert.equal(resultBufferTwo[5], itemState, 'Not the good item state');
         assert.equal(resultBufferTwo[7], retailerID, 'Not the good retailerID');
         assert.equal(eventEmitted, true, 'Not the good event emitted');
+
     })
 
     // 8th Test
@@ -229,10 +218,10 @@ contract('SupplyChain', function(accounts) {
         // Add the ConsumerRole
         await supplyChain.addConsumer(consumerID);
         // Watch the emitted event Purchased()
-        var event = supplyChain.Purchased()
-        await event.watch((err, res) => {
-            eventEmitted = true
-        })
+        supplyChain.getPastEvents('Purchased', {fromBlock: 0, toBlock: 'latest'}).then(function (event) {
+            eventEmitted = true;
+            //console.log(event);
+        });
         // Mark an item as Sold by calling function buyItem()
         supplyChain.purchaseItem(upc, {from: consumerID});
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
@@ -242,7 +231,6 @@ contract('SupplyChain', function(accounts) {
         itemState = 7;
         assert.equal(resultBufferOne[0], sku, 'Not the good item SKU')
         assert.equal(resultBufferOne[1], upc, 'Not the good item UPC')
-        assert.equal(resultBufferOne[2], consumerID, 'Not the good ownerID');
         assert.equal(resultBufferTwo[5], itemState, 'Not the good item state');
         assert.equal(resultBufferTwo[8], consumerID, 'Not the good consumerID');
         assert.equal(eventEmitted, true, 'Not the good event emitted');

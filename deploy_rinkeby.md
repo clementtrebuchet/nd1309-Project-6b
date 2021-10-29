@@ -1,3 +1,4 @@
+```bash
 > [clementtrebuchet@clemozore project-6]$ truffle migrate --network rinkeby
 Using network 'rinkeby'.
 
@@ -27,9 +28,7 @@ Running migration: 2_deploy_contracts.js
 Saving successful migration to network...
   ... 0xe73bac8694095348ede3129ab80f514d98c32268e5b99f21cd6867b4e52f15c4
 Saving artifacts...
+```
 
-
-> Contract Address 
-> https://rinkeby.etherscan.io/address/0xb9b710fd02110fb350725245bc7f2143aa3a2e4f
-> Decompile
-> https://rinkeby.etherscan.io/bytecode-decompiler?a=0xb9b710fd02110fb350725245bc7f2143aa3a2e4f
+* Contract Address
+* https://rinkeby.etherscan.io/address/0xb9b710fd02110fb350725245bc7f2143aa3a2e4f

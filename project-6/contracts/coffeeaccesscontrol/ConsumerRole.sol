@@ -1,22 +1,23 @@
-pragma solidity ^0.4.24;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
 
 // Import the library 'Roles'
 import "./Roles.sol";
 
 // Define a contract 'ConsumerRole' to manage this role - add, remove, check
 contract ConsumerRole {
-  using Roles for Roles.Role;
-  // Define 2 events, one for Adding, and other for Removing
-  event ConsumerAdded(address indexed account);
-  event ConsumerRemoved(address indexed account);
+	using Roles for Roles.Role;
+	// Define 2 events, one for Adding, and other for Removing
+	event ConsumerAdded(address indexed account);
+	event ConsumerRemoved(address indexed account);
 
   // Define a struct 'consumers' by inheriting from 'Roles' library, struct Role
   Roles.Role private consumers;
 	
   // In the constructor make the address that deploys this contract the 1st consumer
-  constructor() public {
-    _addConsumer(msg.sender);
-  }
+	constructor() {
+		_addConsumer(msg.sender);
+	}
 
   // Define a modifier that checks to see if msg.sender has the appropriate role
   modifier onlyConsumer() {

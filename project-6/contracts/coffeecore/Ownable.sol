@@ -1,23 +1,24 @@
-pragma solidity ^0.4.24;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
 
 /// Provides basic authorization control
 contract Ownable {
-    address private origOwner;
-
+    address payable private origOwner;
+    
     // Define an Event
-    event TransferOwnership(address indexed oldOwner, address indexed newOwner);
-
+    event TransferOwnership(address payable indexed oldOwner, address payable indexed newOwner);
+    
     /// Assign the contract to an owner
-    constructor () internal {
-        origOwner = msg.sender;
-        emit TransferOwnership(address(0), origOwner);
+    constructor () {
+        origOwner = payable(msg.sender);
+        emit TransferOwnership(payable(address(0)), origOwner);
     }
-
+    
     /// Look up the address of the owner
-    function _owner() public view returns (address) {
+    function _owner() public view returns (address payable) {
         return origOwner;
     }
-
+    
     /// Define a function modifier 'onlyOwner'
     modifier onlyOwner() {
         require(isOwner());
@@ -26,23 +27,23 @@ contract Ownable {
 
     /// Check if the calling address is the owner of the contract
     function isOwner() public view returns (bool) {
-        return msg.sender == origOwner;
+        return msg.sender == payable(origOwner);
     }
-
-    /// Define a function to renounce ownerhip
+    
+    /// Define a function to renounce ownership
     function renounceOwnership() public onlyOwner {
-        emit TransferOwnership(origOwner, address(0));
-        origOwner = address(0);
+        emit TransferOwnership(origOwner, payable(address(0)));
+        origOwner = payable(address(0));
     }
-
+    
     /// Define a public function to transfer ownership
-    function transferOwnership(address newOwner) public onlyOwner {
+    function transferOwnership(address payable newOwner) public onlyOwner {
         _transferOwnership(newOwner);
     }
-
+    
     /// Define an internal function to transfer ownership
-    function _transferOwnership(address newOwner) internal {
-        require(newOwner != address(0));
+    function _transferOwnership(address payable newOwner) internal {
+        require(newOwner != payable(address(0)));
         emit TransferOwnership(origOwner, newOwner);
         origOwner = newOwner;
     }
