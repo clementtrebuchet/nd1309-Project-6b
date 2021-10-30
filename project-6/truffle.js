@@ -7,7 +7,9 @@ module.exports = {
             host: "127.0.0.1",
             port: 8545,
             network_id: "*",
-            from: "0xe01b804010E22A4CF900ad29C3b6c16Fa3D30f8B"
+            from: "0xc70d8398eE3860E17dBb5Afd4435B83660C0Af98", // the contract should be deployed with the address of the Farmer
+            gas: 4500000,
+            gasPrice: 10000000000,
         },
         rinkeby: {
             provider: function () {

@@ -8,18 +8,21 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "pk <pkrasam@gmail.com> (https://ipfs.infura.io/ipfs/QmSXiR9Khm3yo1J67nUopvVBxFJ8YGN2fUGZ34Etr3m92x/)",
+  "author": "",
   "license": "MIT",
   "devDependencies": {
     "bignumber.js": "^8.0.0",
     "lite-server": "2.4.0"
   },
   "dependencies": {
+    "@truffle/contract": "^4.3.38",
     "@truffle/hdwallet-provider": "^1.5.1",
     "bignumber": "^1.1.0",
     "bignumber.js": "^8.0.0",
     "eth-rpc-errors": "^4.0.3",
     "require": "^2.4.20",
-    "require.js": "^1.0.0"
+    "require.js": "^1.0.0",
+    "uuid": "^8.3.2",
+    "web3": "^1.6.0"
   }
 }

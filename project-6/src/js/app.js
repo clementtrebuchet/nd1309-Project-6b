@@ -1,7 +1,6 @@
 App = {
     web3Provider: null,
     contracts: {},
-    emptyAddress: "0x0000000000000000000000000000000000000000",
     sku: 0,
     upc: 0,
     metamaskAccountID: "0x0000000000000000000000000000000000000000",
@@ -90,9 +89,7 @@ App = {
     },
     handleButtonClick: async function (event) {
         event.preventDefault();
-
         App.getMetaskAccountID();
-
         var processId = parseInt($(event.target).data('id'));
         console.log('processId', processId);
         switch(processId) {
@@ -126,34 +123,7 @@ App = {
             case 10:
                 return await App.fetchItemBufferTwo(event);
                 break;
-            case 11:
-                return await App.Subscribe(event);
-                break;
         }
-    },
-    Subscribe: async function () {
-        const mType = $('#subscribe').val();
-
-        App.contracts.SupplyChain.deployed().then(function (instance) {
-            if (mType === "farmers") {
-                console.log(App.metamaskAccountID);
-                instance.addFarmer({from: App.metamaskAccountID}).then(r => console.log(r)).catch(e => console.log(e))
-            } else if (mType === "distributors") {
-                instance.addDistributor({from: App.metamaskAccountID.toLowerCase()}).then(r => console.log(r)).catch(e => console.log(e))
-            } else if (mType === "retailers") {
-                instance.addRetailers({from: App.metamaskAccountID.toLowerCase()}).then(r => console.log(r)).catch(e => console.log(e))
-            } else if (mType === "consumers") {
-                instance.addConsumers({from: App.metamaskAccountID.toLowerCase()}).then(r => console.log(r)).catch(e => console.log(e))
-            } else {
-                console.log('No role provided');
-            }
-        }).then(function (result) {
-            if (mType === null) {
-                console.log('Trying to subscribe with no role');
-            }
-        }).catch(function (err) {
-            console.log(err.message);
-        });
     },
     harvestItem: function (event) {
         event.preventDefault();
@@ -219,7 +189,7 @@ App = {
         var processId = parseInt($(event.target).data('id'));
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
-            const walletValue = web3.utils.toWei(3, "ether");
+            const walletValue = App.web3.utils.toWei("1000000000000000000", "wei");
             return instance.buyItem(App.upc, {from: App.metamaskAccountID, value: walletValue});
         }).then(function(result) {
             $("#ftc-item").text(result);

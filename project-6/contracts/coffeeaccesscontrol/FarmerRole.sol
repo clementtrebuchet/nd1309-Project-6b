@@ -6,49 +6,49 @@ import "./Roles.sol";
 
 // Define a contract 'FarmerRole' to manage this role - add, remove, check
 contract FarmerRole {
-	using Roles for Roles.Role;
-	
-	// Define 2 events, one for Adding, and other for Removing
-	event FarmerAdded(address indexed account);
-  event FarmerRemoved(address indexed account);
-
+  using Roles for Roles.Role;
+  
+  // Define 2 events, one for Adding, and other for Removing
+  event FarmerAdded(address payable  indexed account);
+  event FarmerRemoved(address payable  indexed account);
+  
   // Define a struct 'farmers' by inheriting from 'Roles' library, struct Role
   Roles.Role private farmers;
-
-  // In the constructor make the address that deploys this contract the 1st farmer
-	constructor() {
-		_addFarmer(msg.sender);
-	}
-
+  
+  // In the constructor make the address payable  that deploys this contract the 1st farmer
+  constructor() {
+    _addFarmer(payable(msg.sender));
+  }
+  
   // Define a modifier that checks to see if msg.sender has the appropriate role
   modifier onlyFarmer() {
-    require(isFarmer(msg.sender));
+    require(isFarmer(payable(msg.sender)));
     _;
   }
 
   // Define a function 'isFarmer' to check this role
-  function isFarmer(address account) public view returns (bool) {
+  function isFarmer(address payable account) public view returns (bool) {
     return farmers.has(account);
   }
 
   // Define a function 'addFarmer' that adds this role
-  function addFarmer(address account) public onlyFarmer {
+  function addFarmer(address payable account) public onlyFarmer {
     _addFarmer(account);
   }
 
   // Define a function 'renounceFarmer' to renounce this role
   function renounceFarmer() public {
-    _removeFarmer(msg.sender);
+    _removeFarmer(payable(msg.sender));
   }
 
   // Define an internal function '_addFarmer' to add this role, called by 'addFarmer'
-  function _addFarmer(address account) internal {
+  function _addFarmer(address payable account) internal {
     farmers.add(account);
     emit FarmerAdded(account);
   }
 
   // Define an internal function '_removeFarmer' to remove this role, called by 'removeFarmer'
-  function _removeFarmer(address account) internal {
+  function _removeFarmer(address payable account) internal {
     farmers.remove(account);
     emit FarmerRemoved(account);
   }
