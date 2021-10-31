@@ -208,7 +208,7 @@ I have tested extra features in the UI like transfer the ownership of the contra
 
 In order to proceed to these changes I have added some buttons with an explict text on it.
 
-If you try to bypass the attended actors that are explicitly mentioned on these buttons the transaction will fail.
+If you try to bypass the expected actors that are explicitly mentioned on these buttons, the transaction will fail.
 
 You can find below the transactions that the UI will accept.
 
