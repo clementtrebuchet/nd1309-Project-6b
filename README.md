@@ -1,6 +1,14 @@
 # Supply chain & data auditing
 
-This repository containts an Ethereum DApp that demonstrates a Supply Chain flow between a Seller and Buyer. The user story is similar to any commonly used supply chain process. A Seller can add items to the inventory system stored in the blockchain. A Buyer can purchase such items from the inventory system. Additionally a Seller can mark an item as Shipped, and similarly a Buyer can mark an item as Received.
+This repository contains an Ethereum DApp that demonstrates a Supply Chain flows between a Seller and Buyer.
+
+The user story is similar to any commonly used supply chain process. 
+
+A Seller can add items to the inventory system stored in the blockchain. 
+
+A Buyer can purchase such items from the inventory system. 
+
+Additionally, a Seller can mark an item as Shipped, and similarly a Buyer can mark an item as Received.
 
 The DApp User Interface when running should look like...
 
@@ -14,7 +22,7 @@ The DApp User Interface when running should look like...
 
 
 ## Notes
-I had implemented an extra step in this project by transferring the Owner of the contract across the actors.
+I had implemented an extra step in this project by transferring the Owner of the contract across the actors (see the note on the UI ).
 You can use ganache-cli or like me the graphic version of ganache.
 
 ### Prerequisites
@@ -50,10 +58,12 @@ npm install
 
 Launch Ganache:
 
-```
+```bash
 ganache-cli --networkId 5777 --accounts 20  --mnemonic="betray pool clock magnet coast zone sweet crucial nasty display lady method"```
-
+```
 Your terminal should look something like this:
+```bash
+
 Available Accounts
 ==================
 (0) 0xe01b804010E22A4CF900ad29C3b6c16Fa3D30f8B (100 ETH)
@@ -122,36 +132,38 @@ Call Gas Limit
 
 ![truffle test](images/ganache-cli.png)
 
-In a separate terminal window, Compile smart contracts:
+In a separate terminal window, Compile the smart contracts:
 
-
+```
 truffle compile
 ```
 
 Your terminal should look something like this:
-```
+
 ![truffle test](images/truffle_compile.png)
 
 This will create the smart contract artifacts in folder ```build\contracts```.
 
+- *Note: each time that you make a change in the contracts it's preferable to delete this folder before you recompile your contracts*
+
 Migrate smart contracts to the locally running blockchain, ganache-cli:
 
-
+```
 truffle migrate
 ```
 
 Your terminal should look something like this:
-```
+
+
 ![truffle test](images/truffle_migrate.png)
 
 Test smart contracts:
-
-
+```
 truffle test
 ```
 
-All the 10 tests pass.
-```
+[All the 10 tests pass.](test_results.md)
+
 ![truffle test](images/truffle_test.png)
 
 In a separate terminal window, launch the DApp:
@@ -160,20 +172,13 @@ In a separate terminal window, launch the DApp:
 npm run dev
 ```
 
-## Built With
-
-* Ganache 2.5.4
-* solidity 8.0.7
-* npm 8.1.0
-* node 16.13.0
-* web3 1.6.0
-
 ## Deployment on Ganache
+
 You can find this contract deployed to Ganache [here](deploy_development.md).
 
 ## Deployment on Rinkeby
 
-You can find this contract deployed to Rinkeby [here](deploy_rinkeby.md).
+You can find these contracts deployed to Rinkeby [here](deploy_rinkeby.md) with the address of the contracts.
 
 ## UML
 
@@ -185,4 +190,26 @@ Four diagrams are available that makes clearer the development process
 - [Sequence Diagram](diagrams/sequence_diagram.svg)
 - [State Diagram](diagrams/state_diagram.svg)
 
+## A note on the UI 
+
+The Farmer will normally be the owner of the contract when you deploy it. It depends on the address you have set in the [truffle.js](project-6/truffle.js) for development section.
+```bash
+ development: {
+            host: "127.0.0.1",
+            port: 8545,
+            network_id: "*",
+            from: "0xc70d8398eE3860E17dBb5Afd4435B83660C0Af98", // the contract should be deployed with the address of the Farmer
+            gas: 4500000,
+            gasPrice: 10000000000,
+        },
+```
+I have tested extra features in the UI like transfer the ownership of the contract across the actors.
+
+In order to proceed to these changes I have added some buttons with an explict text on it.
+
+If you try to bypass the attended actors that are explicitly mentioned on these buttons the transaction will fail.
+
+You can find below the transactions that the UI will accept.
+
+![Transactions sequences](images/ftc_transaction_history.png)
 
