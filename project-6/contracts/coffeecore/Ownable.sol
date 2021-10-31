@@ -1,49 +1,52 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
+import "./Context.sol";
+
 /// Provides basic authorization control
-contract Ownable {
-    address payable private origOwner;
+contract Ownable is Context {
+    address private origOwner;
     
     // Define an Event
-    event TransferOwnership(address payable indexed oldOwner, address payable indexed newOwner);
+    event TransferOwnership(address indexed oldOwner, address indexed newOwner);
     
     /// Assign the contract to an owner
     constructor () {
-        origOwner = payable(msg.sender);
+        address msgSender = _msgSender();
+        origOwner = msgSender;
         emit TransferOwnership(payable(address(0)), origOwner);
     }
     
     /// Look up the address of the owner
-    function _owner() public view returns (address payable) {
+    function _owner() public view returns (address) {
         return origOwner;
     }
     
     /// Define a function modifier 'onlyOwner'
     modifier onlyOwner() {
-        require(isOwner());
+        require(isOwner(), "Ownable: caller is not the owner");
         _;
     }
 
     /// Check if the calling address is the owner of the contract
     function isOwner() public view returns (bool) {
-        return msg.sender == payable(origOwner);
+        return _owner() == _msgSender();
     }
     
     /// Define a function to renounce ownership
-    function renounceOwnership() public onlyOwner {
-        emit TransferOwnership(origOwner, payable(address(0)));
-        origOwner = payable(address(0));
+    function renounceOwnership() public virtual onlyOwner {
+        emit TransferOwnership(origOwner, address(0));
+        origOwner = address(0);
     }
     
     /// Define a public function to transfer ownership
-    function transferOwnership(address payable newOwner) public onlyOwner {
+    function transferOwnership(address newOwner) public virtual onlyOwner {
         _transferOwnership(newOwner);
     }
     
     /// Define an internal function to transfer ownership
-    function _transferOwnership(address payable newOwner) internal {
-        require(newOwner != payable(address(0)));
+    function _transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
         emit TransferOwnership(origOwner, newOwner);
         origOwner = newOwner;
     }

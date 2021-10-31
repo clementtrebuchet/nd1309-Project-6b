@@ -143,7 +143,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   // and set 'sku' to 1
   // and set 'upc' to 1
   constructor() payable {
-    owner = payable(msg.sender);
+    owner = _owner();
     sku = 1;
     upc = 1;
   }
@@ -214,7 +214,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   }
 
   // Define a function 'sellItem' that allows a farmer to mark an item 'ForSale'
-  function sellItem(uint _upc, uint _price) public 
+  function sellItem(uint _upc, uint _price) public
   // Call modifier to check if upc has passed previous supply chain stage
   packed(_upc)
   // Call modifier to verify caller of this function
@@ -251,7 +251,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   
   // Define a function 'shipItem' that allows the distributor to mark an item 'Shipped'
   // Use the above modifiers to check if the item is sold
-  function shipItem(uint _upc) public 
+  function shipItem(uint _upc) public
     // Call modifier to check if upc has passed previous supply chain stage
     sold(_upc)
     // Call modifier to verify caller of this function
@@ -265,7 +265,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
 
   // Define a function 'receiveItem' that allows the retailer to mark an item 'Received'
   // Use the above modifiers to check if the item is shipped
-  function receiveItem(uint _upc) public 
+  function receiveItem(uint _upc) public
     // Call modifier to check if upc has passed previous supply chain stage
     shipped(_upc) onlyRetailer
     // Access Control List enforced by calling Smart Contract / DApp
@@ -280,7 +280,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
 
   // Define a function 'purchaseItem' that allows the consumer to mark an item 'Purchased'
   // Use the above modifiers to check if the item is received
-  function purchaseItem(uint _upc) public 
+  function purchaseItem(uint _upc) public
     // Call modifier to check if upc has passed previous supply chain stage
     received(_upc) onlyConsumer
     // Access Control List enforced by calling Smart Contract / DApp

@@ -5,6 +5,7 @@ var RetailerRole = artifacts.require("./RetailerRole.sol");
 var ConsumerRole = artifacts.require("./ConsumerRole.sol");
 var SupplyChain = artifacts.require("./SupplyChain.sol");
 var Ownable = artifacts.require("./Ownable.sol");
+var Context = artifacts.require("./Context.sol");
 var Roles = artifacts.require("./Roles.sol");
 
 module.exports = function (deployer) {
@@ -15,4 +16,5 @@ module.exports = function (deployer) {
   deployer.deploy(SupplyChain);
   deployer.deploy(Roles);
   deployer.deploy(Ownable);
+  deployer.deploy(Context)
 };
