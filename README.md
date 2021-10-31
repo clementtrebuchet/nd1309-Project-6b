@@ -37,6 +37,29 @@ Please make sure you've already installed the following dependencies and enabled
 * Node v16.13.0
 * Web3.js v1.5.3
 
+### Why I have adopted these libraries
+- Ganache 
+> I choose Ganache because it allows us to have a personal blockchain for Ethereum and to make the development process more easy by allowing developers
+> to develop, deploy and test decentralised applications in a local way.
+
+- Truffle
+> I choose Truffle because is a development framework that simplified the development process of the blockchain, 
+> is the most reputed framework that permit developers to have unbelievable commodities.
+> Plus it comes with tests, examples and so on.
+
+- Solidity
+> Solidity is the oriented object framework to write smart contracts to be deployed on the ethereum blockchain.
+
+- Node.js - npm
+> I choose Node because is an event-driven Javascript runtime, with this framework developers can build network applications that are scalable.
+> It comes with a large eco-system of libraries that facilitates the development process of both frontend application and backend applications.
+> It is compatible with web3.js and comes with npm that is a registry, and that comes with a cli that facilitate the usage of Node. 
+
+- web3.js
+> I choose web3.js because it's embed a collections of libs that permits the interactions with a local or a remote ethereum blockchain
+> Plus it has the capability to communicate with MetaMask wallet, things that made the development of this decentralised application simpler.
+
+
 ### Installing
 
 > The code is written for **Solidity v0.8.7**.
