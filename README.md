@@ -183,6 +183,7 @@ You can find these contracts deployed to Rinkeby [here](deploy_rinkeby.md) with 
 ## UML
 
 Four diagrams are available that makes clearer the development process
+
 *note: these diagrams are in the svg format and could be view directly into github*
 
 - [Activity Diagram](diagrams/activity_diagram.svg)
